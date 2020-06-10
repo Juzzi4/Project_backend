@@ -6,6 +6,6 @@ class UserMusicsController < ApplicationController
     end
 
     def show
-        render json: @usermusix, except: [:created_at, :updated_at]
+        render json: @usermusic, except: [:created_at, :updated_at]
     end
 end

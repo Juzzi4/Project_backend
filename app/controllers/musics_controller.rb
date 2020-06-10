@@ -1,6 +1,6 @@
 class MusicsController < ApplicationController
     
-    before_action :find_music, only: [:show, :update, :destroy]
+    before_action only: [:show, :update, :destroy]
     
     def index
         musics = Music.all
@@ -8,6 +8,7 @@ class MusicsController < ApplicationController
     end
 
     def show
+        # @music = Music.find(params[:id])
         render json: @music, except: [:created_at, :updated_at]
     end
 
@@ -21,15 +22,13 @@ class MusicsController < ApplicationController
     end
 
     def update
-        @music.update(
-            music_params
-            is_liked: params[:is_liked]
-        )
-        @quote.save
+        # @music = Music.find(params[:id])
+        @music.update(music_params)
     end
 
     def destroy
-        @quote.destroy
+        # @music = Music.find(params[:id])
+        @music.destroy
         render json: {message: "Music Purchased"}
     end
 
