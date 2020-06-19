@@ -8,7 +8,7 @@ gem 'rails', '~> 6.0.3', '>= 6.0.3.1'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
-gem 'puma', '~> 4.1'
+# gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
@@ -52,9 +52,9 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-# gem 'jwt'
+gem 'jwt'
 gem 'unirest'
 gem 'rack-cors'
-gem 'dotenv-rails', groups: [:development, :test]
-gem 'active_model_serializers', '~> 0.10.0'
-gem 'knock', '~> 2.0'
+# gem 'dotenv-rails', groups: [:development, :test]
+# gem 'active_model_serializers', '~> 0.10.0'
+# gem 'knock', '~> 2.0'
