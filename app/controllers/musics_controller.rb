@@ -3,7 +3,7 @@ class MusicsController < ApplicationController
     before_action only: [:show, :update, :destroy]
     
     def index
-        musics = Music.all
+        musics = Music.limit(10)
         render json: musics, except: [:created_at, :updated_at]
     end
 
@@ -22,8 +22,11 @@ class MusicsController < ApplicationController
     end
 
     def update
-        # @music = Music.find(params[:id])
-        @music.update(music_params)
+        @music = Music.find(params[:id])
+        @music.update(
+            is_liked: params[:saved]
+        )
+        @music.save
     end
 
     def destroy
@@ -39,6 +42,6 @@ class MusicsController < ApplicationController
     end
 
     def music_params
-        params.require(:music).permit(:user_music)
+        params.require(:music).permit(:user, :music, :user_music)
     end
 end
