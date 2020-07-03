@@ -1,7 +1,15 @@
 class AuthController < ApplicationController
-    before_action :require_login
+    # before_action :require_login
+
+    def index
+        auth = Auth.all
+    end
+
+    def show
+        render json: @auth
+    end
     
-    def login
+    def create
         user = User.find_by(username: params[:username])
         if user && user.authenticate(params[:password])
             payload = {user_id: user.id}
@@ -24,7 +32,7 @@ class AuthController < ApplicationController
         !!session_user
     end
 
-    def require_login
-        render json: {message: 'Please login'}, status: :unauthorized unless logged_in?
-    end
+    # def require_login
+    #     render json: {message: 'Please login'}, status: :unauthorized unless logged_in?
+    # end
 end

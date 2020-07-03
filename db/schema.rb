@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(version: 2020_06_08_165828) do
     t.string "arranger"
     t.string "publisher"
     t.integer "difficulty"
-    t.boolean "is_liked"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -30,6 +29,7 @@ ActiveRecord::Schema.define(version: 2020_06_08_165828) do
   create_table "user_musics", force: :cascade do |t|
     t.integer "user_id"
     t.integer "music_id"
+    t.boolean "is_liked"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
