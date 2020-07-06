@@ -5,6 +5,10 @@ class MusicsController < ApplicationController
     def index
         if params[:user_id].present?
             musics = User.find(params[:user_id]).musics
+        elsif params[:search].present?
+            puts params[:search]
+            musics = Music.where(nil)
+            musics = musics.filter_by_search_term(params[:search])
         else
             musics = Music.limit(10)
         end
