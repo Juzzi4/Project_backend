@@ -5,5 +5,5 @@ Rails.application.routes.draw do
  resources :users
  resources :musics
  resources :user_musics
- resources :auth
+ post '/login', to: 'auth#create', as: 'login'
 end

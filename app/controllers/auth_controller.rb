@@ -1,5 +1,5 @@
 class AuthController < ApplicationController
-    # before_action :require_login
+    before_action :require_login
 
     def index
         auth = Auth.all
@@ -11,12 +11,11 @@ class AuthController < ApplicationController
     
     def create
         user = User.find_by(username: params[:username])
-        if user && user.authenticate(params[:password])
+        if user && user.password === params[:password]
             payload = {user_id: user.id}
-            token = encode_token(payload)
-            render json: {user: user, jwt: token, success: "Welcome back, #{user.username}"}
+            render json: {user: user, success: "Welcome back, #{user.first_name}"}, except: [:password, :created_at, :updated_at]
         else
-            render json: {failure: "Log in failed! Username or password invalid!"}
+            render json: {failure: "Log in failed! Username or password invalid!"}, :status => 403
         end
     end
 
@@ -32,7 +31,7 @@ class AuthController < ApplicationController
         !!session_user
     end
 
-    # def require_login
-    #     render json: {message: 'Please login'}, status: :unauthorized unless logged_in?
-    # end
+    def require_login
+        render json: {message: 'Please login'}, status: :unauthorized unless logged_in?
+    end
 end
