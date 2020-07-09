@@ -11,9 +11,9 @@ class UserMusicsController < ApplicationController
         render json: @usermusic, except: [:created_at, :updated_at]
     end
 
-    def destroy
-        @usermusic = UserMusic.find(params[:id])
-            @usermusic.destroy
-                render json: {message: "Music Deleted from Saves"}
-    end
+    # def destroy
+    #     @usermusic = UserMusic.find(params[:id])
+    #         @usermusic.destroy
+    #             render json: {message: "Music Deleted from Saves"}
+    # end
 end
