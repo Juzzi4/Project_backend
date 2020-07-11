@@ -21,7 +21,7 @@ data.each do |x|
         composer: x[3],
         arranger: x[4],
         publisher: x[5],
-        difficulty: 0,
+        difficulty: x[6],
     )
 end
     
