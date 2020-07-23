@@ -1,9 +1,27 @@
 class MusicsController < ApplicationController
     
-    before_action :find_music, only: [:show, :update, :destroy]
+    before_action only: [:show, :update]
     
     def index
-        musics = Music.all
+        if params[:limit].present?
+            limit = params[:limit]
+        else
+            limit = 10
+        end
+        if params[:offset].present?
+            offset = params[:offset]
+        else
+            offset = 0
+        end
+
+        if params[:user_id].present?
+            musics = User.find(params[:user_id]).musics.limit(limit).offset(offset)
+        elsif params[:search].present?
+            musics = Music.where(nil)
+            musics = musics.filter_by_search_term(params[:search]).limit(limit).offset(offset)
+        else
+            musics = Music.limit(limit).offset(offset)
+        end
         render json: musics, except: [:created_at, :updated_at]
     end
 
@@ -11,35 +29,21 @@ class MusicsController < ApplicationController
         render json: @music, except: [:created_at, :updated_at]
     end
 
-    def new
-        music = Quote.new
-    end
-
-    def create
-        music = Music.create(music_params)
-        render json: music
-    end
-
     def update
-        @music.update(
-            music_params
-            is_liked: params[:is_liked]
-        )
-        @quote.save
+        @usermusic = UserMusic.create(user_id: params[:user_id], music_id: params[:id], is_liked: true);
+
+        render json: @usermusic, except: [:created_at, :updated_at]
     end
 
     def destroy
-        @quote.destroy
-        render json: {message: "Music Purchased"}
+        @usermusic = UserMusic.where(user_id: params[:user_id], music_id: params[:id])
+            @usermusic.destroy_all
+                render json: {message: "Music Deleted from Saves"}
     end
 
     private
 
-    def find_music
-        @music = Music.find(params[:id])
-    end
-
     def music_params
-        params.require(:music).permit(:user_music)
+        params.require(:music).permit(:user, :music, :user_music)
     end
 end

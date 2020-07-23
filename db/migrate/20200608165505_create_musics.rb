@@ -7,7 +7,6 @@ class CreateMusics < ActiveRecord::Migration[6.0]
       t.string :arranger
       t.string :publisher
       t.integer :difficulty
-      t.boolean :is_liked
 
       t.timestamps
     end
