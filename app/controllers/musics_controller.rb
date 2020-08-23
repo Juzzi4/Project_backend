@@ -23,7 +23,7 @@ class MusicsController < ApplicationController
         #     musics = Music.limit(limit).offset(offset)
         # end
         require 'csv'
-        musics = CSV.read("Job Application List - Sheet1.csv")
+        musics = CSV.read("709783.csv",  "r:ISO-8859-1")
         render json: musics, except: [:created_at, :updated_at]
     end
 
